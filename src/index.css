@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind CSS configuration */
+@layer components {
+    .input {
+        @apply bg-[#f2f2f2] text-[#989898] rounded-sm;
+    }
+
+    .skeleton {
+        @apply bg-[#f2f2f2];
+        background-image: linear-gradient(105deg, transparent 0%, transparent 40%, #f9fafbad 50%, transparent 60%, transparent 100%);
+    }
+
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 4px; /* Adjust the width as needed */
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3); /* Optional: thumb color */
+        border-radius: 2px; /* Optional: rounded corners */
+    }
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+    }
+}
