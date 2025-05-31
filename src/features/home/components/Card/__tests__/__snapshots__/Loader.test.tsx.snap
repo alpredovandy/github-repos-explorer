@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Test components: CardLoader > Snapshot 1`] = `
+<div>
+  <div
+    class="grid grid-cols-3 gap-2"
+  >
+    <div
+      class="col-span-3 skeleton h-6 w-full rounded"
+    />
+    <div
+      class="col-span-1"
+    />
+    <div
+      class="col-span-2"
+    >
+      <div
+        class="skeleton h-6 w-full rounded mt-2"
+      />
+      <div
+        class="skeleton h-4 w-full rounded mt-2"
+      />
+    </div>
+  </div>
+</div>
+`;
