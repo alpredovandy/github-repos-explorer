@@ -34,8 +34,6 @@ export const useGithubReposByUsernamesQuery = (usernames: string[]) => {
         enabled: !isEmpty(usernames),
     });
 
-    console.log('fox repos error', query.error);
-
     useEffect(() => {
         if (query.isError) {
             showErrorMessage({ message: String(query.error).slice(0, 50) });
