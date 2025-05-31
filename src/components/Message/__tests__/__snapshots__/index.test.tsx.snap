@@ -1,3 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Test components: Message > Snapshot 1`] = `<div />`;
+exports[`Test components: Message > Snapshot 1`] = `
+<div>
+  <div
+    class="toast toast-top toast-end"
+  >
+    <div
+      class="alert alert-error"
+    >
+      <span>
+        Test message
+      </span>
+    </div>
+  </div>
+</div>
+`;

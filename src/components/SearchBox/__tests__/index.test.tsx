@@ -5,7 +5,13 @@ import SearchBox from '@/components/SearchBox';
 import type { SearchBoxProps } from '@/components/SearchBox/types';
 
 describe('Test components: SearchBox', () => {
-    let props: SearchBoxProps;
+    const props: SearchBoxProps = {
+        handleSearch: () => {},
+        handleClear: () => {},
+        value: '',
+        placeholder: 'Search...',
+    };
+
     const renderSearchBox = () => render(<SearchBox {...props} />);
 
     it('Snapshot', () => {

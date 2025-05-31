@@ -5,7 +5,13 @@ import Message from '@/components/Message';
 import type { MessageProps } from '@/components/Message/types';
 
 describe('Test components: Message', () => {
-    let props: MessageProps;
+    const props: MessageProps = {
+        show: true,
+        onClose: () => {},
+        message: 'Test message',
+        type: 'info',
+    };
+
     const renderMessage = () => render(<Message {...props} />);
 
     it('Snapshot', () => {
