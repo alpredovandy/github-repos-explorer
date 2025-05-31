@@ -29,7 +29,8 @@ class GithubService implements GithubServiceType {
                 const repos = await this._http.get<GithubRepositoriesByUsernameType>(`/users/${username}/repos`);
                 results.push({ username, repositories: repos });
             } catch (error) {
-                throw new Error(`Failed to fetch repositories for user ${username}: ${error}`);
+                const errorMessage = error instanceof Error ? error.message : 'An error occurred while fetching repositories';
+                throw new Error(errorMessage);
             }
         }
         return { results };
