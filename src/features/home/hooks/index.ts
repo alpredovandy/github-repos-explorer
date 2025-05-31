@@ -18,7 +18,7 @@ export const useGithubByUsernameQuery = (params: PaginateRequestType, enabled = 
 
     useEffect(() => {
         if (query.isError) {
-            showErrorMessage({ message: 'Oops, something went wrong!' });
+            showErrorMessage({ message: String(query.error) });
         }
     }, [query.isError, showErrorMessage]);
 
@@ -26,9 +26,21 @@ export const useGithubByUsernameQuery = (params: PaginateRequestType, enabled = 
 };
 
 export const useGithubReposByUsernamesQuery = (usernames: string[]) => {
-    return useQuery({
+    const { showErrorMessage } = useMessageContext();
+
+    const query = useQuery({
         queryKey: ['githubUseCase.getReposByUsernames', usernames],
         queryFn: async () => await githubUseCase.getReposByUsernames(usernames),
         enabled: !isEmpty(usernames),
     });
+
+    console.log('fox repos error', query.error);
+
+    useEffect(() => {
+        if (query.isError) {
+            showErrorMessage({ message: String(query.error).slice(0, 50) });
+        }
+    }, [query.isError, showErrorMessage]);
+
+    return query;
 };
