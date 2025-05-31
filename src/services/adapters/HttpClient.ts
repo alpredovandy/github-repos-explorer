@@ -28,7 +28,7 @@ class HttpClient {
             (response) => response?.data,
             (error) => {
                 if (error.response.status >= 400) {
-                    throw new Error(error.response.data?.meta?.msg);
+                    throw new Error(error.response.data.message);
                 }
 
                 return Promise.reject(error);
