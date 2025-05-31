@@ -15,7 +15,7 @@ const App = () => {
     return (
         <QueryClientProvider client={queryClient}>
             <MessageProvider>
-                <div className="bg-[#e5e5e5] flex justify-center items-center p-12">
+                <div className="bg-[#e5e5e5] h-screen flex justify-center items-center p-12">
                     <GithubProvider>
                         <Home />
                     </GithubProvider>
