@@ -22,7 +22,11 @@ const Home = () => {
                 }}
             >
                 <SearchBox value={state.search} handleSearch={(value) => set({ search: value })} handleClear={reset} placeholder="Enter username" />
-                <button className="w-full py-1.5 bg-[#2c9cdb] text-[14px] text-white rounded-sm" onClick={onRefetch}>
+                <button
+                    className="w-full py-1.5 bg-[#2c9cdb] disabled:bg-gray-300 disabled:text-[#989898] text-[14px] text-white rounded-sm"
+                    onClick={onRefetch}
+                    disabled={isLoading}
+                >
                     {isLoading ? 'Loading...' : 'Search'}
                 </button>
             </div>
