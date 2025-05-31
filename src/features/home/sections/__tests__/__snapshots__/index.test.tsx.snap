@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Test Home/section: Catalog > Snapshot 1`] = `
+<div>
+  <div
+    class="grid flex-auto md:grid-cols-2 xl:grid-cols-3 flex-wrap gap-2"
+  >
+    <div
+      class="card w-46 bg-white shadow-xl"
+    >
+      <img
+        alt="Shoes"
+        class="object-fill h-40 w-full rounded relative"
+        src="https://media2.giphy.com/media/3o6wrvdHFbwBrUFenu/giphy-preview.gif"
+      />
+      <button
+        class="absolute top-0 right-0 left-0 bottom-0 text-white font-bold"
+      >
+        pause
+      </button>
+    </div>
+  </div>
+  <button
+    class="btn btn-active btn-primary items-center text-lg"
+  >
+     
+    Load more
+  </button>
+</div>
+`;
