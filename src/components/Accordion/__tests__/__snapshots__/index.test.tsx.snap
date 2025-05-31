@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Test components: Accordion > Snapshot 1`] = `
+<div>
+  <div
+    class="rounded-sm flex flex-col items-end mb-4"
+  >
+    <button
+      class="flex justify-between items-center w-full px-4 py-2 bg-[#f2f2f2] hover:bg-gray-100"
+    >
+      <span
+        class="font-medium text-[#2a2a2a]"
+      >
+        Test Title
+      </span>
+      <svg
+        class="w-4 h-4 transition-transform duration-200"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 9l-7 7-7-7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;
