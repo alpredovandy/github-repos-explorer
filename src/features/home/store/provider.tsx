@@ -18,13 +18,13 @@ export const GithubProvider = ({ children }: { children: React.ReactNode }) => {
     const {
         data: users,
         refetch: refetchUsers,
-        isPending: isLoadingUsers,
+        isLoading: isLoadingUsers,
     } = useGithubByUsernameQuery({
         search: state.search,
         limit: 10,
     });
 
-    const { data: repos, isPending: isLoadingRepos } = useGithubReposByUsernamesQuery(users?.items?.map((user) => user.login) || []);
+    const { data: repos, isLoading: isLoadingRepos } = useGithubReposByUsernamesQuery(users?.items?.map((user) => user.login) || []);
 
     useEffect(() => {
         if (!isEmpty(users) && !isEmpty(repos)) {
@@ -46,8 +46,6 @@ export const GithubProvider = ({ children }: { children: React.ReactNode }) => {
             refetchUsers();
         }
     };
-
-    console.log('fox repos', repos);
 
     return (
         <GithubContext.Provider
