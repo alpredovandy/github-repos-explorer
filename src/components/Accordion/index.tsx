@@ -26,7 +26,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
                     </svg>
                 )}
             </button>
-            {isOpen && <div className="mt-2 p-4 w-[90%] mb-8">{content}</div>}
+            {isOpen && <div className="mt-2 py-2 w-[90%] mb-8">{content}</div>}
         </div>
     );
 };

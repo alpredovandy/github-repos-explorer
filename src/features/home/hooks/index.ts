@@ -18,7 +18,7 @@ export const useGithubByUsernameQuery = (params: PaginateRequestType, enabled = 
 
     useEffect(() => {
         if (query.isError) {
-            showErrorMessage({ message: String(query.error) });
+            showErrorMessage({ message: String(query.error) ?? 'Oops, something went wrong!' });
         }
     }, [query.isError, showErrorMessage]);
 
@@ -36,7 +36,8 @@ export const useGithubReposByUsernamesQuery = (usernames: string[]) => {
 
     useEffect(() => {
         if (query.isError) {
-            showErrorMessage({ message: String(query.error).slice(0, 50) });
+            const errorMessage = query.error ? String(query.error).slice(0, 50) : 'Oops, something went wrong!';
+            showErrorMessage({ message: errorMessage });
         }
     }, [query.isError, showErrorMessage]);
 
