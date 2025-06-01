@@ -35,8 +35,6 @@ export const GithubProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [users, repos]);
 
-    console.log('fox repo', repos);
-
     const update = (data: Partial<GithubState>) => setState((prev) => ({ ...prev, ...data }));
 
     const reset = () => {
