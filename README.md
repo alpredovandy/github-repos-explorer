@@ -1,4 +1,4 @@
-# Giphyaw
+# Github Repositories Explorer
 
 This project build using Stack:
 
