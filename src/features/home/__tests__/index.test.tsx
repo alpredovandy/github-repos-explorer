@@ -1,30 +1,41 @@
-// import { render } from '@testing-library/react';
-// import { describe, expect, test, vi } from 'vitest';
+import { render } from '@testing-library/react';
+import { describe, expect, test, vi } from 'vitest';
 
-// import { MOCK_GIFS } from '@/domains/__mocks__/Gif.ts';
-// import { CatalogProps } from '@/features/home/sections/types';
+import { CatalogProps } from '@/features/home/sections/types';
 
-// import Home from '..';
+import Home from '..';
 
-// const mockCatalog = vi.fn();
-// vi.mock('@/features/home/sections/Catalog', () => ({
-//     default: (props: CatalogProps) => {
-//         mockCatalog(props);
-//         return <div data-testid="home-catalog" {...props} />;
-//     },
-// }));
+const mockCatalog = vi.fn();
 
-// vi.mock('@tanstack/react-query', () => ({
-//     useQuery: () => ({
-//         data: MOCK_GIFS,
-//         isPending: false,
-//     }),
-// }));
+const mockGithubUsersData = vi.fn().mockReturnValue({});
+const mockGithubReposData = vi.fn().mockReturnValue({});
+const mockIsLoading = vi.fn().mockReturnValue(false);
 
-// describe('@/modules: Home', () => {
-//     test('Snapshot', () => {
-//         const { container } = render(<Home />);
+vi.mock('@/contexts/Message/context');
 
-//         expect(container).toMatchSnapshot();
-//     });
-// });
+vi.mock('@tanstack/react-query');
+
+vi.mock('@/features/home/sections/Catalog', () => ({
+    default: (props: CatalogProps) => {
+        mockCatalog(props);
+        return <div data-testid="home-catalog" {...props} />;
+    },
+}));
+
+vi.mock('@/features/home/hooks', () => ({
+    useGithubByUsernameQuery: () => ({
+        data: mockGithubUsersData,
+        isLoading: mockIsLoading,
+    }),
+    useGithubReposByUsernamesQuery: () => ({
+        data: mockGithubReposData,
+        isLoading: mockIsLoading,
+    }),
+}));
+
+describe('@/features: Home', () => {
+    test('Snapshot', () => {
+        const { container } = render(<Home />);
+        expect(container).toMatchSnapshot();
+    });
+});
