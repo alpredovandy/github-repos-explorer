@@ -3,28 +3,38 @@
 exports[`Test Home/section: Catalog > Snapshot 1`] = `
 <div>
   <div
-    class="grid flex-auto md:grid-cols-2 xl:grid-cols-3 flex-wrap gap-2"
+    class="mt-1"
   >
     <div
-      class="card w-46 bg-white shadow-xl"
+      class="flex flex-col gap-2"
     >
-      <img
-        alt="Shoes"
-        class="object-fill h-40 w-full rounded relative"
-        src="https://media2.giphy.com/media/3o6wrvdHFbwBrUFenu/giphy-preview.gif"
-      />
-      <button
-        class="absolute top-0 right-0 left-0 bottom-0 text-white font-bold"
+      <div
+        class="rounded-sm flex flex-col items-end mb-4"
       >
-        pause
-      </button>
+        <button
+          class="flex justify-between items-center w-full px-4 py-2 bg-[#f2f2f2] hover:bg-gray-100"
+        >
+          <span
+            class="font-medium text-[#2a2a2a]"
+          >
+            duy
+          </span>
+          <svg
+            class="w-4 h-4 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 9l-7 7-7-7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
-  <button
-    class="btn btn-active btn-primary items-center text-lg"
-  >
-     
-    Load more
-  </button>
 </div>
 `;

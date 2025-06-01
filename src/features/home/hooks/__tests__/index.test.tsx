@@ -1,58 +1,97 @@
-// import { waitFor } from '@testing-library/react';
-// import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// import { MOCK_GIFS } from '@/domains/__mocks__/Gif';
-// import { renderHookWithQuery } from '@/helpers/render-test';
-// import type * as MockHttpClient from '@/services/adapters/__mocks__/HttpClient';
-// import * as HttpClient from '@/services/adapters/HttpClient';
+import { MOCK_GITHUB_REPOSITORIES_BY_USERNAMES, MOCK_GITHUB_USERS_BY_USERNAME } from '@/domains/__mocks__/Github';
+import { renderHookWithQuery } from '@/helpers/render-test';
+import type * as MockHttpClient from '@/services/adapters/__mocks__/HttpClient';
+import * as HttpClient from '@/services/adapters/HttpClient';
 
-// import { useGifsQuery } from '..';
+import { useGithubByUsernameQuery, useGithubReposByUsernamesQuery } from '..';
 
-// vi.mock('@/services/adapters/HttpClient');
-// const { mockGet } = HttpClient as unknown as typeof MockHttpClient;
+vi.mock('@/services/adapters/HttpClient');
+const { mockGet } = HttpClient as unknown as typeof MockHttpClient;
 
-// vi.unmock('@tanstack/react-query');
+const mockShowError = vi.fn().mockImplementation(() => ({
+    message: 'Oops, something went wrong!',
+}));
 
-// const mockShowError = vi.fn().mockImplementation(() => ({
-//     message: 'Oops, something went wrong!',
-// }));
+vi.mock('@/contexts/Message/context', () => ({ useMessageContext: () => ({ showErrorMessage: mockShowError }) }));
 
-// vi.mock('@/contexts/Message/context', () => ({ useMessageContext: () => ({ showErrorMessage: mockShowError }) }));
+describe('Test modules Home: hooks', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
-// describe('Test modules Home: hooks', () => {
-//     beforeEach(() => {
-//         vi.clearAllMocks();
-//     });
+    it('useGithubByUsernameQuery should return response correctly', async () => {
+        mockGet.mockImplementation(() => Promise.resolve(MOCK_GITHUB_USERS_BY_USERNAME));
 
-//     it('useGifsQuery should return response correctly', async () => {
-//         mockGet.mockImplementation(() => Promise.resolve(MOCK_GIFS));
+        const { result } = renderHookWithQuery(useGithubByUsernameQuery, {
+            initialProps: {
+                search: 'duy',
+                limit: 10,
+            },
+        });
 
-//         const { result } = renderHookWithQuery(useGifsQuery, {
-//             initialProps: {
-//                 limit: 10,
-//                 type: 'categories',
-//             },
-//         });
+        result.current.refetch(); // Ensure the query is executed
 
-//         await waitFor(() => {
-//             expect(result.current.data).toMatchObject(MOCK_GIFS);
-//         });
-//     });
+        await waitFor(() => {
+            expect(result.current).toMatchObject({
+                data: MOCK_GITHUB_USERS_BY_USERNAME,
+            });
+        });
+    });
 
-//     it('useGifsQuery should show error message', async () => {
-//         mockGet.mockImplementation(() => Promise.reject());
+    it('useGithubByUsernameQuery should call showErrorMessage on error', async () => {
+        const mockError = new Error('Oops, something went wrong!');
+        mockGet.mockImplementation(() => Promise.reject(mockError));
 
-//         renderHookWithQuery(useGifsQuery, {
-//             initialProps: {
-//                 limit: 10,
-//                 type: '',
-//             },
-//         });
+        const { result } = renderHookWithQuery(useGithubByUsernameQuery, {
+            initialProps: {
+                type: 'duy',
+                limit: 10,
+            },
+        });
 
-//         await waitFor(() => {
-//             expect(mockShowError).toHaveBeenCalledWith({
-//                 message: 'Oops, something went wrong!',
-//             });
-//         });
-//     });
-// });
+        result.current.refetch(); // Ensure the query is executed
+
+        await waitFor(() => {
+            expect(mockShowError).toHaveBeenCalledWith({
+                message: 'Error: Oops, something went wrong!',
+            });
+        });
+    });
+
+    it('useGithubReposByUsernamesQuery should return response correctly', async () => {
+        mockGet.mockImplementation(() => Promise.resolve(MOCK_GITHUB_REPOSITORIES_BY_USERNAMES));
+
+        const { result } = renderHookWithQuery(useGithubReposByUsernamesQuery, {
+            initialProps: ['duy'],
+        });
+
+        result.current.refetch(); // Ensure the query is executed
+
+        await waitFor(() => {
+            expect(result.current.data).toEqual([
+                {
+                    username: 'duy',
+                    repositories: MOCK_GITHUB_REPOSITORIES_BY_USERNAMES,
+                },
+            ]);
+        });
+    });
+
+    it('useGithubReposByUsernamesQuery should call showErrorMessage on error', async () => {
+        const mockError = new Error('Oops, something went wrong!');
+        mockGet.mockImplementation(() => Promise.reject(mockError));
+
+        renderHookWithQuery(useGithubReposByUsernamesQuery, {
+            initialProps: ['duy'],
+        });
+
+        await waitFor(() => {
+            expect(mockShowError).toHaveBeenCalledWith({
+                message: 'Error: Oops, something went wrong!',
+            });
+        });
+    });
+});
