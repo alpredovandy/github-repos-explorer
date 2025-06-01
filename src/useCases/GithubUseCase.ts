@@ -5,7 +5,7 @@ import type { GithubServiceType } from '@/services/GithubService';
 export interface GithubUseCaseType {
     getByUsername(params: PaginateRequestType): Promise<GithubUsersByUsernameType>;
 
-    getReposByUsernames: (usernames: string[]) => Promise<{ results: { username: string; repositories: GithubRepositoriesByUsernameType }[] }>;
+    getReposByUsernames: (usernames: string[]) => Promise<{ username: string; repositories: GithubRepositoriesByUsernameType }[]>;
 }
 
 class GithubUseCase implements GithubUseCaseType {
@@ -22,7 +22,7 @@ class GithubUseCase implements GithubUseCaseType {
         const sortedFiltered = [];
 
         if (search) {
-            const filtered = response.items.filter((res) => res.login.toLowerCase().includes(search?.toLowerCase()));
+            const filtered = (response?.items ?? []).filter((res) => res.login.toLowerCase().includes(search?.toLowerCase()));
             sortedFiltered.push(...filtered.sort((a, b) => b.score - a.score));
         }
 
@@ -30,7 +30,7 @@ class GithubUseCase implements GithubUseCaseType {
     };
 
     getReposByUsernames: GithubUseCaseType['getReposByUsernames'] = async (usernames) => {
-        if (!usernames?.length) return { results: [] };
+        if (!usernames?.length) return [];
 
         return await this._githubService.getReposByUsernames(usernames);
     };

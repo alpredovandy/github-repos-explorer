@@ -5,7 +5,7 @@ import type HttpClient from '@/services/adapters/HttpClient';
 export interface GithubServiceType {
     getByUsername(params: PaginateRequestType): Promise<GithubUsersByUsernameType>;
 
-    getReposByUsernames: (usernames: string[]) => Promise<{ results: { username: string; repositories: GithubRepositoriesByUsernameType }[] }>;
+    getReposByUsernames: (usernames: string[]) => Promise<{ username: string; repositories: GithubRepositoriesByUsernameType }[]>;
 }
 
 class GithubService implements GithubServiceType {
@@ -15,7 +15,7 @@ class GithubService implements GithubServiceType {
         this._http = httpClient;
     }
 
-    getByUsername: GithubServiceType['getByUsername'] = ({ type = 'search', search, limit = 10, ...params }) => {
+    getByUsername: GithubServiceType['getByUsername'] = ({ search, limit = 10, ...params }) => {
         return this._http.get('/search/users', {
             params: { ...params, per_page: limit, q: search },
         });
@@ -33,7 +33,7 @@ class GithubService implements GithubServiceType {
                 throw new Error(errorMessage);
             }
         }
-        return { results };
+        return results;
     };
 }
 

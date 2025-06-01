@@ -30,10 +30,12 @@ export const GithubProvider = ({ children }: { children: React.ReactNode }) => {
         if (!isEmpty(users) && !isEmpty(repos)) {
             update({
                 users: users?.items ?? [],
-                repositories: repos?.results ?? [],
+                repositories: repos ?? [],
             });
         }
     }, [users, repos]);
+
+    console.log('fox repo', repos);
 
     const update = (data: Partial<GithubState>) => setState((prev) => ({ ...prev, ...data }));
 
