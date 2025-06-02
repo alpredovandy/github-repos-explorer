@@ -16,9 +16,9 @@ const Card: FC<CardProps> = ({ data, isLoading }) => {
                     {data?.repositories && data?.repositories?.length > 0 ? (
                         <div className="flex flex-col gap-3">
                             {data?.repositories?.map((repo, index: number) => (
-                                <div key={index} className="flex flex-col p-3 h-28 bg-[#e0e0e0] rounded-sm">
-                                    <div className="flex flex-row justify-between">
-                                        <span className="text-[#000000] font-bold text-[18px]">{repo.name}</span>
+                                <div key={index} className="flex flex-col p-3 h-fit bg-[#e0e0e0] rounded-sm">
+                                    <div className="flex flex-row justify-between flex-wrap">
+                                        <span className="text-[#000000] font-bold text-[18px] break-words">{repo.name}</span>
                                         <span className="text-[#000000] font-bold flex flex-row items-center gap-1.5">
                                             {repo.stargazers_count ?? 0}
                                             <svg
@@ -32,7 +32,7 @@ const Card: FC<CardProps> = ({ data, isLoading }) => {
                                             </svg>
                                         </span>
                                     </div>
-                                    <span className="text-[#000000] text-[15px] mt-1">{truncateText(repo.description, 150)}</span>
+                                    <span className="text-[#000000] text-[15px] mt-1 break-words">{truncateText(repo.description, 150)}</span>
                                 </div>
                             ))}
                         </div>
